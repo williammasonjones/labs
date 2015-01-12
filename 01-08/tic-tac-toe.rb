@@ -44,4 +44,18 @@ while true do
   end
   puts
 
+  # Round Start
+  turn = :player1
+  while true do
+    draw_board(board)
+
+    if players[turn][:ai]
+      index = board.reject{|k,v| v == 'X' || v == 'O'}.keys.sample
+      puts "#{players[turn][:name]} chooses space #{index}.\n"
+    else
+      puts "#{players[turn][:name]}, please choose an empty space (0-8):"
+      index = gets.chomp.to_i
+    end
+     
+
 end
