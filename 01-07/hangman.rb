@@ -16,46 +16,41 @@ words = ['angus',
   'darwinism']
 
 def complete_word?(answer, guessed)
-  answer.chars.all? { |x| guessed.include?(x) }
+  answer.chars.all? { |l| guessed.include?(l) }
 end
 
-# def win?(turns)
-#   !turns.zero?
-# end
-#
-def finished? (turns, guessed, answer)
+def finished?(turns, guessed, answer)
   turns.zero? || complete_word?(answer, guessed)
-  # turns.zero? || answer.chars.all? { |l| guesses.include?(l) }
 end
 
 def greeting(turn_count)
-  # TODO: tell the player about hangman
-  puts "Welcome to Will's hanging!. Guess a word in 6 chances to save my neck!."
+  puts "Welcome to Will's hanging!. Guess a word in #{turn_count} chances to save my neck!."
   puts
 end
 
-# def game_over(answer, turns)
-#   # TODO: tell the player what the word was and if they won or lost
-#   puts answer
-#   puts
-#   if finished?()
-#     puts "Thank you for saving my neck!"
-#   else
-#     puts "Some friend you were..."
-#   end
-# end
+def game_over(answer, guessed)
+  puts answer
+  puts
+  if complete_word?(answer, guessed)
+    puts "Thank you for saving my neck!"
+  else
+    puts "I'm hanged. Some friend you were..."
+  end
+end
 
-# def display_guesses(guesses,answer)
-#   # result = answer.each_char { |x| ...}
-#   # puts result
-# end
+def display_guesses(answer, guessed)
+  result = answer.each_char do |c|
+    if guessed.include?(c)
+      print(c)
+    else
+      print "_"
+    end
+  end
+end
 
 def prompt_player
-  # TODO: get user input / show some status
-  # call function that displays partially completed word
-  puts "Guess a letter to start the game."
-  guess = gets.chomp
-
+  puts "Guess a letter to start the game..."
+  letter = gets.chomp
 end
 
 def hangman(words)
@@ -66,11 +61,13 @@ def hangman(words)
   until finished?(turn_count, guessed, answer)
     guess = prompt_player
     guessed.add(guess)
+    display_guesses(answer,guessed)
     unless answer.include?(guess)
       turn_count -= 1
     end
   end
-  game_over # TODO: Do I need an argument?
+  puts
+  game_over(answer, guessed)
 end
 
 hangman(words)
