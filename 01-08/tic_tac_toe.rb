@@ -39,7 +39,7 @@ def game_over? board, player, index
     diags = [[0,4,8], [2,4,6]]
 
     # The following 3 loops should be combined into a single function
-    # Do you see the patterns / similarities between the loops?
+    # Look for patterns / similarities between the loop for refactoring opts.
     # rows.each do |row|
     #     if row.include?(index) && row.map{|i| board[i]} == line
     #         win = true
